@@ -1,0 +1,19 @@
+.creator {
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  margin: 48px auto 32px auto;
+  align-items: center;
+  justify-content: center;
+}
+
+.white-header {
+  color: #fff;
+  margin-bottom: 32px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}

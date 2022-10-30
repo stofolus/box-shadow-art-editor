@@ -1,0 +1,12 @@
+.button-wrapper {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 32px;
+}
+
+.button {
+  padding: 8px 16px;
+  border-radius: var(--card-border-radius);
+  background-color: rgb(82, 8, 152);
+  color: #fff;
+}

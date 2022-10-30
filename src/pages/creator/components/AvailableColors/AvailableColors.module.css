@@ -1,0 +1,29 @@
+.available-colors {
+  background-color: var(--card-background-color);
+  margin: 32px;
+  padding: 32px;
+}
+
+.pickable-color {
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.pickable-color-pixel {
+  --pickable-color-size: calc(var(--pixel-size) * 1.5);
+  height: var(--pickable-color-size);
+  width: var(--pickable-color-size);
+  border: var(--pixel-border);
+  margin-right: 8px;
+  border-radius: var(--pixel-border-radius);
+}
+
+.color-wrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin: 12px 0;
+}

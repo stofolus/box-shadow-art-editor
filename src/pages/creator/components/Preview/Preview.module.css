@@ -1,0 +1,14 @@
+.pixel-art-wrapper {
+  --size: 16px;
+
+  height: calc(var(--size) * var(--grid-height));
+  width: calc(var(--size) * var(--grid-width));
+  border-radius: 50px;
+  padding: calc(var(--size) * 1.5);
+  box-sizing: content-box;
+}
+
+.pixel-art {
+  height: var(--size);
+  width: var(--size);
+}

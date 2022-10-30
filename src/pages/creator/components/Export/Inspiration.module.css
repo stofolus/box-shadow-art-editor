@@ -1,0 +1,9 @@
+.button {
+  font-size: 12px;
+  color: hsl(271, 90%, 31%);
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin: 32px auto 0 auto;
+  display: block;
+}

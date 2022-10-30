@@ -1,0 +1,58 @@
+.pixel-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 32px;
+  flex-direction: column;
+}
+
+.pixel-row {
+  display: flex;
+}
+
+.clickable-pixel {
+  margin: var(--pixel-margin);
+  border: var(--pixel-border);
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  border-radius: var(--pixel-border-radius);
+  outline: none;
+  display: block;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.extend-grid-button {
+  background-color: transparent;
+  outline: none;
+  padding: 6px;
+  font-size: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+  border-radius: var(--pixel-border-radius);
+  height: 32px;
+  width: 32px;
+}
+
+.horizontal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vertical-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.height-button {
+  /** 
+   * Compensate for the extra width that the add width button creates
+   */
+  margin-right: 54px;
+}
