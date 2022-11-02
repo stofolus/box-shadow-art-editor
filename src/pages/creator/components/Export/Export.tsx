@@ -5,45 +5,55 @@ import { generateBoxShadow } from "../../../../utils/BoxShadow";
 import styles from "./Export.module.css";
 import { Inspiration } from "./Inspiration";
 
+interface CodepenValue {
+  title: string;
+  html: string;
+  css: string;
+}
+
 export const Export = () => {
   const [pixels] = usePixels();
+
+  const codepenValue: CodepenValue = {
+    title: "Pixel art",
+    html: getHtml(),
+    css: getCss(pixels),
+  };
+
   return (
     <Card>
       <h2>Export</h2>
       <div className={styles["button-wrapper"]}>
-        <button className={styles.button} type="button" onClick={copyHtml}>
-          Copy HTML
-        </button>
-        <button
-          className={styles.button}
-          type="button"
-          onClick={() => copyCss(pixels)}
+        <form
+          action="https://codepen.io/pen/define"
+          method="POST"
+          target="_blank"
         >
-          Copy CSS
-        </button>
+          <input
+            type="hidden"
+            name="data"
+            value={JSON.stringify(codepenValue)}
+          />
+          <button className={styles.button} type="submit">
+            Open on codepen
+          </button>
+        </form>
       </div>
       <Inspiration />
     </Card>
   );
 };
 
-function copyHtml() {
-  navigator.clipboard
-    .writeText(
-      `<div class="pixel-art-wrapper">
+function getHtml() {
+  return `<div class="pixel-art-wrapper">
   <div class="pixel-art"></div>
-</div>`
-    )
-    .then(() => console.log("Copied!"))
-    .catch((e) => console.error("Failed to copy", e));
+</div>`;
 }
 
-function copyCss(pixels: Pixels) {
+function getCss(pixels: Pixels) {
   const grid = getMinimumGrid(pixels);
 
-  navigator.clipboard
-    .writeText(
-      `body {
+  return `body {
   background: black;
 }
       
@@ -65,10 +75,7 @@ function copyCss(pixels: Pixels) {
   height: var(--size);
   width: var(--size);
   box-shadow: ${generateBoxShadow(pixels)};
-}`
-    )
-    .then(() => console.log("Copied!"))
-    .catch((e) => console.error("Failed to copy", e));
+}`;
 }
 
 function getMinimumGrid(pixels: Pixels): Grid {
@@ -91,7 +98,7 @@ function getMinimumGrid(pixels: Pixels): Grid {
 
       return {
         height: heightIndex,
-        width: Math.max(width),
+        width: Math.max(width, heightAcc.width),
       };
     },
     { height: -1, width: -1 }
