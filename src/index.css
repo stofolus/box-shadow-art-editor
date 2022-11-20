@@ -49,6 +49,7 @@ img {
 
 :root {
   --background-color: #000;
+  --button-color: rgb(82, 8, 152);
 
   --card-background-color: #fff;
   --card-padding: 16px;

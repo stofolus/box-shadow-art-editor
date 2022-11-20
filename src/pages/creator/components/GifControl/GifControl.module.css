@@ -1,0 +1,21 @@
+.header {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.button {
+  border-radius: var(--card-border-radius);
+  background-color: var(--button-color);
+  color: #fff;
+  cursor: pointer;
+}
+
+.frame-buttons-wrapper {
+  margin-bottom: 10px;
+}
+
+.frame-button--active {
+  background-color: var(--button-color);
+  color: #fff
+}

@@ -16,8 +16,9 @@ export interface Grid {
 }
 
 export interface PixelState {
-  pixels: Pixels;
+  pixels: Pixels[];
   grid: Grid;
+  activeFrame: number;
 }
 
 export interface PixelContextProps {
@@ -37,8 +38,9 @@ export const PixelContextProvider: FunctionComponent<{
   children: ReactNode;
 }> = ({ children }) => {
   const [state, setState] = useReducer(stateReducer, {
-    pixels: [],
+    pixels: [[]],
     grid: { height: 10, width: 10 },
+    activeFrame: 0,
   });
 
   return (
@@ -67,7 +69,8 @@ export const useGrid = (): [grid: Grid, setGrid: (grid: Grid) => void] => {
 
 export const usePixels = (): [
   pixels: Pixels,
-  setPixels: (pixels: Pixels) => void
+  setPixels: (pixels: Pixels) => void,
+  frames: Pixels[]
 ] => {
   const context = useContext(PixelContext);
 
@@ -77,10 +80,46 @@ export const usePixels = (): [
 
   const setPixels = useCallback(
     (pixels: Pixels) => {
-      context.setState({ pixels });
+      const pixelsCopy = [...context.state.pixels];
+      pixelsCopy[context.state.activeFrame] = pixels;
+      context.setState({ pixels: pixelsCopy });
     },
     [context]
   );
 
-  return [context.state.pixels, setPixels];
+  return [
+    context.state.pixels[context.state.activeFrame],
+    setPixels,
+    context.state.pixels,
+  ];
+};
+
+export const useGif = (): [
+  activeFrame: number,
+  addFrame: () => void,
+  removeFrame: () => void,
+  setActiveFrame: (frameNumber: number) => void
+] => {
+  const context = useContext(PixelContext);
+
+  const addFrame = () => {
+    const pixelsCopy = [...context.state.pixels];
+    pixelsCopy.push([]);
+    context.setState({
+      pixels: pixelsCopy,
+    });
+  };
+
+  const removeFrame = () => {
+    const pixelsCopy = [...context.state.pixels];
+    context.setState({
+      pixels: pixelsCopy.slice(0, pixelsCopy.length - 1),
+    });
+  };
+
+  const setActiveFrame = (frameNumber: number) => {
+    context.setState({ activeFrame: frameNumber });
+  };
+
+  return [context.state.activeFrame, addFrame, removeFrame, setActiveFrame];
 };

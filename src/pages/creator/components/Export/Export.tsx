@@ -12,12 +12,12 @@ interface CodepenValue {
 }
 
 export const Export = () => {
-  const [pixels] = usePixels();
+  const [pixels, , frames] = usePixels();
 
   const codepenValue: CodepenValue = {
     title: "Pixel art",
     html: getHtml(),
-    css: getCss(pixels),
+    css: frames.length > 1 ? getGIFCss(frames) : getCss(pixels),
   };
 
   return (
@@ -75,6 +75,47 @@ function getCss(pixels: Pixels) {
   height: var(--size);
   width: var(--size);
   box-shadow: ${generateBoxShadow(pixels)};
+}`;
+}
+
+function getGIFCss(frames: Pixels[]) {
+  const grid = getMinimumGrid(frames[0]);
+
+  return `body {
+  background: black;
+}
+      
+.pixel-art-wrapper {
+  --size: 16px;
+  --grid-height: ${Math.max(grid.height, 10)};
+  --grid-width: ${Math.max(grid.width, 10)};
+
+  height: calc(var(--size) * var(--grid-height));
+  width: calc(var(--size) * var(--grid-width));
+  border-radius: 50px;
+  padding: calc(var(--size) * 1.5);
+  box-sizing: content-box;
+  background-color: #FFF;
+  margin: 32px auto;
+}
+
+.pixel-art {
+  height: var(--size);
+  width: var(--size);
+  box-shadow: ${generateBoxShadow(frames[0])};
+  animation: gif infinite 1s steps(1);
+}
+
+@keyframes gif {
+  ${frames
+    .slice(1, frames.length)
+    .map((frame, index) => {
+      return `${Math.floor(100 / frames.length) * (index + 1)}% {
+      box-shadow: ${generateBoxShadow(frame)};
+    }`;
+    })
+    .toString()
+    .replaceAll("},", "} ")}
 }`;
 }
 

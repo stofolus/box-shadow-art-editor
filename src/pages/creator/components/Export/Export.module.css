@@ -7,6 +7,6 @@
 .button {
   padding: 8px 16px;
   border-radius: var(--card-border-radius);
-  background-color: rgb(82, 8, 152);
+  background-color: var(--button-color);
   color: #fff;
 }
