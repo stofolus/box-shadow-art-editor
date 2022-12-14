@@ -1,5 +1,6 @@
 import { AvailableColors } from "./components/AvailableColors/AvailableColors";
 import { Export } from "./components/Export/Export";
+import { GifControl } from "./components/GifControl/GifControl";
 import { PixelGrid } from "./components/PixelGrid/PixelGrid";
 import { Preview } from "./components/Preview/Preview";
 import styles from "./Creator.module.css";
@@ -13,6 +14,7 @@ export const Creator = () => {
         <Preview />
         <AvailableColors />
         <Export />
+        <GifControl />
       </div>
     </div>
   );

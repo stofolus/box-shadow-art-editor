@@ -1,17 +1,20 @@
 import { classNames } from "classnames-generics";
 import { Card } from "../../../../components/Card/Card";
 import { Color, useActiveColor } from "../../../../contexts/ColorContext";
-import { useGrid, usePixels } from "../../../../contexts/PixelContext";
+import { useGif, useGrid, usePixels } from "../../../../contexts/PixelContext";
 import styles from "./PixelGrid.module.css";
 
 export const PixelGrid = () => {
   const [grid, setGrid] = useGrid();
-  const [pixels, setPixels] = usePixels();
+  const [pixels, setPixels, frames] = usePixels();
+  const [activeFrame] = useGif();
   const activeColor = useActiveColor();
 
   return (
     <Card>
-      <h2>Pixels</h2>
+      <h2>
+        Pixels {frames.length > 1 && <span>(Frame {activeFrame + 1})</span>}
+      </h2>
       <div className={styles["vertical-wrapper"]}>
         <div className={styles["horizontal-wrapper"]}>
           <div className={styles["pixel-grid"]}>
